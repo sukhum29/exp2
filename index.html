@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexical Analyzer using FLEX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        pre {
+            background: #222;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Lexical Analyzer using FLEX</h2>
+    <p>This is the executable code for a simple lexical analyzer implemented using FLEX.</p>
+
+    <h3>FLEX Code:</h3>
+    <pre><code>
+%{
+#include &lt;stdio.h&gt;
+#include "y.tab.h"
+%}
+
+/* Regular expressions for tokens */
+%%
+[ \t\n]+        ; /* Ignore whitespace */
+"int"|"float"|"char"|"if"|"else"|"while"|"return" { printf("KEYWORD: %s\n", yytext); }
+[a-zA-Z_][a-zA-Z0-9_]*  { printf("IDENTIFIER: %s\n", yytext); }
+[0-9]+         { printf("NUMBER: %s\n", yytext); }
+[+\-*/=<>]     { printf("OPERATOR: %s\n", yytext); }
+.              { printf("SYMBOL: %s\n", yytext); }
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
+
+int yywrap() {
+    return 1;
+}
+</code>
+</body>
+</html>
